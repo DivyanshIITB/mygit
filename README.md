@@ -97,7 +97,7 @@ python main.py commit -m "Dev changes"
 python main.py checkout master
 ```
 
-### [Example CLI Outputs](image.png)
+![Example CLI Outputs](image.png)
 
 ## 📌 Key Learnings
 - How Git internally manages objects, branches, and commits
