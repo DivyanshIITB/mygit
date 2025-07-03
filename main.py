@@ -1,6 +1,6 @@
 import argparse
 import sys
-from core import init, add, commit, checkout
+from src import init, branch, add, commit, checkout, status, log
 
 def main():
     parser = argparse.ArgumentParser(prog='mygit', description='Your own Git in Python!')
@@ -9,6 +9,11 @@ def main():
     # `mygit init`
     init_parser = subparsers.add_parser('init', help='Initialize a new repository')
     init_parser.set_defaults(func=init.run)
+
+    # mygit branch [branchName]
+    branch_parser = subparsers.add_parser('branch', help='Create or list branches')
+    branch_parser.add_argument('branchName', nargs='?', help='Name of the new branch (optional)')
+    branch_parser.set_defaults(func=branch.run)
 
     # `mygit add <file>`
     add_parser = subparsers.add_parser('add', help='Add file to staging area')
@@ -25,6 +30,14 @@ def main():
     checkoutParser.add_argument("-b", action="store_true", help="Create a new branch")
     checkoutParser.add_argument("branchName")
     checkoutParser.set_defaults(func=checkout.run)
+
+    # add log command
+    log_parser = subparsers.add_parser('log', help='Show commit history')
+    log_parser.set_defaults(func=log.run)
+
+    # mygit status
+    status_parser = subparsers.add_parser('status', help='Show working tree status')
+    status_parser.set_defaults(func=status.run)
 
     args = parser.parse_args()
     args.func(args)  
